@@ -250,3 +250,407 @@ footer{display:flex;justify-content:space-between;padding:26px 3px 0;color:#7c89
   .hero h1{font-size:27px !important}
   .quick-grid{grid-template-columns:1fr !important}
 }
+
+
+/* ===== v3 실데이터 + 타이포그래피 + 프리미엄 캘린더 ===== */
+body{font-size:16px}
+.topbar{font-size:11.5px}
+.nav a{font-size:14px}
+.nav-caption{font-size:10px}
+.side-box strong{font-size:12px}
+.side-box p{font-size:10.5px}
+.company-chips span{font-size:9px}
+
+.eyebrow,.section-head>span,.card-head span,.event-head span{
+  font-size:10px !important;
+}
+.hero h1{font-size:44px !important}
+.hero p{font-size:14px !important}
+.hero-search input{font-size:13.5px !important}
+.hero-search button{font-size:12px !important}
+.hero-tags span{font-size:10px !important}
+.hero-side>strong{font-size:20px !important}
+.hero-side p{font-size:11.5px !important}
+.hero-side-grid small{font-size:9px !important}
+
+.quick-grid small{font-size:9.5px !important}
+.quick-grid strong{font-size:15px !important}
+.quick-grid p{font-size:10.5px !important}
+
+.card-head h2{font-size:20px !important}
+.timeline b,.notice-mini b{font-size:12.5px !important}
+.timeline small,.notice-mini time{font-size:10px !important}
+.section-head h2{font-size:25px !important}
+.section-head p{font-size:13.5px !important;line-height:1.7}
+
+.panel{padding:30px !important}
+
+/* 캘린더 전체 */
+.calendar-layout{
+  grid-template-columns:minmax(0,1.55fr) minmax(330px,.78fr) !important;
+  gap:18px !important;
+}
+.calendar{
+  border:1px solid #d8e2e7 !important;
+  border-radius:18px !important;
+  overflow:hidden !important;
+  box-shadow:0 8px 26px rgba(19,47,66,.055);
+  background:#fff;
+}
+.week{
+  min-height:43px;
+  background:linear-gradient(180deg,#f8fafb,#f2f6f7) !important;
+}
+.week span{
+  display:grid;
+  place-items:center;
+  padding:11px 2px !important;
+  border-right:1px solid #dfe6e9 !important;
+  font-size:11px !important;
+  letter-spacing:.03em;
+}
+.calendar-grid{
+  display:grid;
+  grid-template-columns:repeat(7,minmax(0,1fr));
+}
+.day{
+  appearance:none;
+  border:0 !important;
+  border-top:1px solid #e3e9ec !important;
+  border-right:1px solid #e3e9ec !important;
+  min-height:88px !important;
+  padding:9px !important;
+  background:#fff;
+  color:#243c4c;
+  text-align:left;
+  position:relative;
+  cursor:default;
+  transition:background .16s ease,box-shadow .16s ease,opacity .16s ease;
+}
+.day:nth-child(7n){border-right:0 !important}
+.date-num{
+  display:inline-block;
+  font-size:12px;
+  font-weight:800;
+  line-height:26px;
+}
+.day.sun-day:not(.other) .date-num{color:#d34848}
+.day.sat-day:not(.other) .date-num{color:#3b78aa}
+
+.day.other{
+  background:#f6f8f9 !important;
+  opacity:.34 !important;
+  color:#cdd6db !important;
+}
+.day.other .date-num{color:#cbd4d9 !important}
+.day.holiday:not(.other){
+  background:linear-gradient(145deg,#fffafa,#fff5f5) !important;
+}
+.day.holiday:not(.other) .date-num{
+  color:#d44242 !important;
+}
+.day.company-off:not(.other){
+  background:linear-gradient(145deg,#fffaf5,#fff7f3) !important;
+}
+.day.company-off:not(.other) .date-num{
+  color:#c76445 !important;
+}
+.holiday-name{
+  display:block;
+  margin-top:8px;
+  max-width:100%;
+  font-size:8.3px;
+  line-height:1.35;
+  color:#b86a61;
+  font-weight:700;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+.day.today{
+  background:linear-gradient(145deg,#eefaf6,#f8fffc) !important;
+  box-shadow:inset 0 0 0 2px #38b89d !important;
+  z-index:2;
+}
+.day.today .date-num b{
+  display:inline-grid;
+  place-items:center;
+  width:28px;height:28px;
+  border-radius:9px;
+  background:#128d75;
+  color:#fff;
+  box-shadow:0 5px 12px rgba(18,141,117,.22);
+}
+.today-pill{
+  position:absolute;
+  top:8px;right:7px;
+  padding:3px 5px;
+  border-radius:999px;
+  background:#dcf4ed;
+  color:#13846e;
+  font-size:6.5px;
+  font-weight:900;
+  letter-spacing:.07em;
+}
+.event-dot{
+  position:absolute !important;
+  left:auto !important;
+  right:8px !important;
+  bottom:8px !important;
+  width:7px !important;height:7px !important;
+  background:#16a482 !important;
+  box-shadow:0 0 0 4px rgba(22,164,130,.11);
+}
+@media(hover:hover) and (pointer:fine){
+  .day:not(.other):hover{
+    background:#f2faf7 !important;
+    box-shadow:inset 0 0 0 1px #bfe2d8;
+  }
+}
+
+/* 월 이동 컨트롤 */
+.calendar-toolbar{gap:11px !important;margin:8px 0 17px !important}
+.calendar-toolbar button{
+  width:38px !important;height:38px !important;
+  border-radius:11px !important;
+  font-size:15px !important;
+  background:#fff !important;
+  box-shadow:0 4px 12px rgba(21,48,65,.05);
+}
+.calendar-toolbar strong{
+  min-width:122px !important;
+  font-size:16px !important;
+  letter-spacing:-.3px;
+}
+.calendar-toolbar .subtle{
+  width:auto !important;
+  padding:0 13px !important;
+  font-size:10px !important;
+  background:#eef4f5 !important;
+  box-shadow:none !important;
+}
+
+/* 우측 월 요약 */
+.event-panel{
+  min-height:570px !important;
+  border:1px solid #d8e2e7 !important;
+  border-radius:18px !important;
+  padding:20px !important;
+  box-shadow:0 8px 26px rgba(19,47,66,.05);
+}
+.event-head{padding-bottom:15px !important}
+.event-head h3{font-size:16px !important;margin-top:5px !important}
+.event-head>b{font-size:10px !important;padding:7px 9px !important}
+.month-stat-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin:14px 0 4px;
+}
+.month-stat-grid div{
+  padding:13px;
+  border:1px solid #e3eaed;
+  border-radius:13px;
+  background:#f8fafb;
+}
+.month-stat-grid strong{
+  display:block;
+  font-size:20px;
+  color:#17384f;
+}
+.month-stat-grid small{
+  display:block;
+  margin-top:3px;
+  font-size:9px;
+  color:#81909a;
+}
+.event-row{
+  display:grid !important;
+  grid-template-columns:46px 1fr;
+  gap:10px;
+  align-items:start;
+  padding:12px 0 !important;
+}
+.event-date{
+  min-height:34px;
+  display:grid;
+  place-items:center;
+  border-radius:9px;
+  background:#eef4f5;
+  font-size:10px;
+  font-weight:800;
+  color:#556875;
+}
+.event-row b{font-size:12px !important;line-height:1.45}
+.event-row small{font-size:9px !important;margin-top:3px;display:block}
+.event-row.esg .event-date{background:#e6f5f0;color:#12735f}
+.event-row.public-holiday .event-date{background:#fff0f0;color:#c44949}
+.event-row.company-holiday .event-date{background:#fff3e9;color:#b56343}
+.event-empty{
+  min-height:320px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  color:#7f8e98;
+  text-align:center;
+}
+.event-empty span{
+  display:grid;place-items:center;
+  width:42px;height:42px;
+  border-radius:12px;
+  background:#eef4f5;
+  margin-bottom:10px;
+}
+.event-empty b{font-size:12px}
+.event-empty small{font-size:10px;margin-top:5px}
+
+/* R&R redesigned */
+.rr-grid{
+  display:block !important;
+}
+.rr-task-group{
+  margin-top:16px;
+  border:1px solid #dce5e9;
+  border-radius:17px;
+  overflow:hidden;
+  background:#fff;
+}
+.rr-task-head{
+  min-height:62px;
+  padding:13px 16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  background:linear-gradient(180deg,#f8fbfa,#f2f7f5);
+  border-bottom:1px solid #dfe8e5;
+}
+.rr-task-head>div span{
+  display:inline-block;
+  margin-right:9px;
+  padding:5px 8px;
+  border-radius:8px;
+  background:#dbf2ea;
+  color:#11735f;
+  font-size:10px;
+  font-weight:900;
+}
+.rr-task-head>div strong{
+  font-size:13px;
+}
+.rr-task-head em{
+  font-style:normal;
+  color:#677985;
+  font-size:10px;
+}
+.rr-company-grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+}
+.rr-card{
+  border:0 !important;
+  border-right:1px solid #e5eaed !important;
+  border-radius:0 !important;
+  min-height:190px !important;
+  padding:17px !important;
+  box-shadow:none !important;
+}
+.rr-card:last-child{border-right:0 !important}
+.rr-company{
+  font-size:14px;
+  font-weight:900;
+  color:#15384f;
+  margin-bottom:13px;
+}
+.rr-card dl{gap:10px !important}
+.rr-card dl div{
+  grid-template-columns:34px 1fr !important;
+  gap:8px !important;
+}
+.rr-card dt{
+  display:grid;
+  place-items:center;
+  width:28px;height:25px;
+  border-radius:7px;
+  background:#eef4f5;
+  color:#647681;
+  font-size:9px !important;
+  font-weight:800;
+}
+.rr-card dd{
+  font-size:11px !important;
+  line-height:1.65 !important;
+  color:#5a6c77;
+}
+.rr-card dd b{
+  color:#193b50;
+  font-weight:800;
+}
+.rr-card .coord{
+  padding-top:8px;
+  border-top:1px dashed #dce4e8;
+}
+.rr-empty{
+  padding:30px;text-align:center;color:#83919a;font-size:12px
+}
+.rr-tools input{font-size:13px !important}
+.rr-chips button{
+  font-size:10px !important;
+  padding:8px 12px !important;
+}
+
+/* 용어 / 공지 글자 확대 */
+.board-item button b{font-size:12.5px !important}
+.board-item button span,.board-item button em,.board-item button time{font-size:10px !important}
+.board-content{font-size:11.5px !important}
+.glossary-tools input,.glossary-tools select{font-size:12.5px !important}
+.chips button{font-size:10px !important}
+.term-card h3{font-size:17px !important}
+.term-card p{font-size:12px !important}
+.term-card .usage{font-size:10.5px !important}
+
+/* 모바일 */
+@media(max-width:980px){
+  .rr-company-grid{grid-template-columns:1fr 1fr}
+  .rr-card:nth-child(2){border-right:0 !important}
+  .rr-card:nth-child(-n+2){border-bottom:1px solid #e5eaed !important}
+}
+@media(max-width:760px){
+  .hero h1{font-size:31px !important}
+  .hero p{font-size:13px !important}
+  .quick-grid strong{font-size:14px !important}
+  .section-head h2{font-size:22px !important}
+  .section-head p{font-size:12.5px !important}
+  .panel{padding:20px 16px !important}
+
+  .calendar-layout{display:block !important}
+  .calendar{width:100% !important}
+  .week span{font-size:8.5px !important;padding:7px 1px !important}
+  .day{
+    min-height:53px !important;
+    height:53px !important;
+    padding:5px 3px !important;
+  }
+  .date-num{font-size:9.5px !important;line-height:22px}
+  .day.today .date-num b{width:22px;height:22px;border-radius:7px}
+  .holiday-name{display:none !important}
+  .today-pill{font-size:5px !important;padding:2px 3px !important;top:3px;right:2px}
+  .event-dot{width:5px !important;height:5px !important;right:4px !important;bottom:4px !important;box-shadow:none}
+  .event-panel{min-height:310px !important;margin-top:10px;padding:15px !important}
+  .month-stat-grid strong{font-size:17px}
+  .event-empty{min-height:190px}
+  .event-row{grid-template-columns:42px 1fr}
+  .event-row b{font-size:11.5px !important}
+
+  .rr-task-head{align-items:flex-start;flex-direction:column;gap:7px}
+  .rr-company-grid{grid-template-columns:1fr}
+  .rr-card{
+    border-right:0 !important;
+    border-bottom:1px solid #e5eaed !important;
+    min-height:auto !important;
+  }
+  .rr-card:last-child{border-bottom:0 !important}
+  .rr-card:nth-child(-n+2){border-bottom:1px solid #e5eaed !important}
+  .rr-task-head em{font-size:9.5px}
+}

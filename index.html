@@ -43,7 +43,7 @@
         <div class="hero-copy">
           <span class="eyebrow">SEWON GROUP ESG MANAGEMENT SYSTEM</span>
           <h1>ESG 업무를<br><em>한 곳에서 관리합니다.</em></h1>
-          <p>그룹 ESG 일정, 공지사항, 부서별 R&amp;R, 주요 ESG 용어와 업무기준을 빠르게 확인하세요.</p>
+          <p>그룹 ESG 일정, 공지사항, 업무별 대응 담당자, 주요 ESG 용어와 업무기준을 한 곳에서 확인하세요.</p>
           <div class="hero-search">
             <span>⌕</span>
             <input id="globalSearch" placeholder="ESG 업무, 담당부서, 용어를 검색해 보세요"/>
@@ -57,7 +57,7 @@
           <p>전사 ESG 평가·공시·온실가스·공급망 대응을 위한 그룹 공통 업무지원 체계</p>
           <div class="hero-side-grid">
             <div><b>4</b><small>운영 계열사</small></div>
-            <div><b>9</b><small>핵심 ESG 영역</small></div>
+            <div><b>6</b><small>주요 대응업무</small></div>
             <div><b>131</b><small>ESG 용어</small></div>
           </div>
         </div>
@@ -94,7 +94,7 @@
         <div class="section-head">
           <span>ESG CALENDAR</span>
           <h2>ESG 일정</h2>
-          <p>평가·공시·온실가스 검증·교육·자료제출 등 그룹 ESG 주요 일정을 확인합니다.</p>
+          <p>세원그룹 WORK CALENDAR와 ESG 평가·공시·검증·교육 일정을 함께 확인합니다.</p>
         </div>
         <div class="calendar-toolbar">
           <button id="prevMonth">‹</button><strong id="calendarTitle">2026년 9월</strong><button id="nextMonth">›</button>
@@ -106,7 +106,14 @@
             <div id="calendarGrid" class="calendar-grid"></div>
           </div>
           <aside class="event-panel">
-            <div class="event-head"><div><span>EVENTS</span><h3 id="eventTitle">2026년 9월 일정</h3></div><b id="eventCount">3건</b></div>
+            <div class="event-head">
+              <div><span>MONTH OVERVIEW</span><h3 id="eventTitle">2026년 9월 일정</h3></div>
+              <b id="eventCount">0건</b>
+            </div>
+            <div class="month-stat-grid">
+              <div><strong id="workdayCount">19</strong><small>근무일</small></div>
+              <div><strong id="holidayCount">11</strong><small>휴무·공휴일</small></div>
+            </div>
             <div id="eventList"></div>
           </aside>
         </div>
@@ -139,16 +146,17 @@
         <div class="section-head">
           <span>ROLES & RESPONSIBILITIES</span>
           <h2>ESG R&amp;R</h2>
-          <p>ESG 업무별 주관부서와 협조부서를 확인합니다.</p>
+          <p>세원그룹 국내 4사 ESG 주요 업무별 정·부 담당자와 그룹 취합·조율 담당자를 확인합니다.</p>
         </div>
         <div class="rr-tools">
           <input id="rrSearch" placeholder="예: 온실가스, 인권, 공급망, 환경안전"/>
           <div class="rr-chips">
             <button class="active" data-filter="전체">전체</button>
-            <button data-filter="환경">환경</button>
-            <button data-filter="사회">사회</button>
-            <button data-filter="거버넌스">거버넌스</button>
-            <button data-filter="공급망">공급망</button>
+            <button data-filter="LCA">LCA</button>
+            <button data-filter="RMI">RMI</button>
+            <button data-filter="CDP">CDP</button>
+            <button data-filter="SCEMS">SCEMS</button>
+            <button data-filter="ESG 평가">ESG 평가</button>
           </div>
         </div>
         <div id="rrGrid" class="rr-grid"></div>

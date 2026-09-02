@@ -1,14 +1,29 @@
 const $=(s)=>document.querySelector(s), $$=(s)=>[...document.querySelectorAll(s)];
 const rrData=[
- {cat:"환경",title:"온실가스 관리",lead:"기획실/기획팀",coop:"환경안전보건팀 · 총무 · 공정기술 · 생산",role:"Scope 1·2·3 산정, 감축목표, 검증 및 고객사 대응"},
- {cat:"환경",title:"에너지 절감",lead:"총무 / 공정기술",coop:"생산 · 기획 · 재경",role:"전력·연료 사용량 관리, 절감과제 발굴 및 투자 검토"},
- {cat:"환경",title:"환경 데이터",lead:"환경안전보건팀",coop:"생산 · 업무 · 기획",role:"폐기물·용수·대기배출 등 환경지표 관리"},
- {cat:"사회",title:"인권·노동",lead:"인사총무본부",coop:"기획실 · 각 부서",role:"인권정책, 근로조건, 교육, 고충처리 및 평가 증빙"},
- {cat:"사회",title:"안전보건",lead:"환경안전보건팀",coop:"생산 · 공정기술 · 인사",role:"위험성평가, 산업재해, 안전교육 및 법정 관리"},
- {cat:"공급망",title:"협력사 ESG",lead:"기획실 / 전략구매",coop:"품질 · 환경안전 · 인사",role:"협력사 ESG 평가, 개선요청, 교육 및 실사 대응"},
- {cat:"거버넌스",title:"윤리·준법",lead:"기획실 / 인사총무",coop:"전 부서",role:"윤리규정, 신고제도, 준법교육 및 관련 증빙 관리"},
- {cat:"거버넌스",title:"ESG 평가·공시",lead:"기획실/기획팀",coop:"전 부서",role:"EcoVadis, CDP, 고객사 평가 및 ESG 공시 총괄"},
- {cat:"환경",title:"제품환경·LCA",lead:"기술연구소",coop:"구매 · 생산 · 기획",role:"제품 탄소발자국, 원재료 정보, LCA 및 고객사 제품환경 대응"}
+ {task:"LCA",full:"Life Cycle Assessment",company:"세원정공",primary:"공기 이대희 매니저",support:"생산 고경민 매니저 · 업무부 곽기호/정수연 매니저",coord:""},
+ {task:"LCA",full:"Life Cycle Assessment",company:"세원물산",primary:"자재 김호현 책임",support:"총무 양승권 매니저 · 공기 송윤근 매니저",coord:""},
+ {task:"LCA",full:"Life Cycle Assessment",company:"세원테크",primary:"자재 권은찬 책임 · 공기 김빈 매니저",support:"총무 이종완 매니저",coord:""},
+ {task:"LCA",full:"Life Cycle Assessment",company:"세원이엔아이",primary:"영업 이동욱 책임",support:"총무 김민제 매니저",coord:""},
+
+ {task:"RMI",full:"Responsible Minerals Initiative",company:"세원정공",primary:"업무부 곽기호/정수연 매니저",support:"구매 조덕진 책임 (2차사 협조/전달)",coord:""},
+ {task:"RMI",full:"Responsible Minerals Initiative",company:"세원물산",primary:"자재 지병구 매니저",support:"총무 양승권 매니저",coord:""},
+ {task:"RMI",full:"Responsible Minerals Initiative",company:"세원테크",primary:"자재 김광은 책임",support:"총무 이종완 매니저 · 구매 조덕진 책임 (2차사 협조/전달)",coord:""},
+ {task:"RMI",full:"Responsible Minerals Initiative",company:"세원이엔아이",primary:"자재 김용진 책임",support:"-",coord:""},
+
+ {task:"CDP",full:"Carbon Disclosure Project",company:"세원정공",primary:"공기 이대희 매니저",support:"총무 김현정 책임",coord:""},
+ {task:"CDP",full:"Carbon Disclosure Project",company:"세원물산",primary:"총무 나현철 매니저 · 총무 양승권 매니저",support:"공기 송윤근 매니저",coord:""},
+ {task:"CDP",full:"Carbon Disclosure Project",company:"세원테크",primary:"공기 김빈 매니저",support:"총무 이종완 매니저",coord:""},
+ {task:"CDP",full:"Carbon Disclosure Project",company:"세원이엔아이",primary:"총무 김민제 매니저",support:"생기 정재광 매니저",coord:""},
+
+ {task:"SCEMS",full:"Supplier CO₂ Emission Monitoring System / 온실가스 관리",company:"세원정공",primary:"공기 이대희 매니저",support:"총무 김현정 책임",coord:""},
+ {task:"SCEMS",full:"Supplier CO₂ Emission Monitoring System / 온실가스 관리",company:"세원물산",primary:"총무 양승권 매니저",support:"공기 송윤근 매니저 · 자재 지병구 매니저",coord:""},
+ {task:"SCEMS",full:"Supplier CO₂ Emission Monitoring System / 온실가스 관리",company:"세원테크",primary:"자재 권은찬 책임",support:"총무 이종완 매니저",coord:""},
+ {task:"SCEMS",full:"Supplier CO₂ Emission Monitoring System / 온실가스 관리",company:"세원이엔아이",primary:"총무 김민제 매니저",support:"생산 조민주 매니저 · 생기 정재광 매니저 · 자재 김용진 책임",coord:""},
+
+ {task:"ESG 평가",full:"개별 계열사 대응 주관",company:"세원정공",primary:"총무 김현정 책임",support:"전 부서 협조",coord:"기획 김준성 책임 · 기획 진승길 매니저"},
+ {task:"ESG 평가",full:"개별 계열사 대응 주관",company:"세원물산",primary:"총무 나현철 매니저 · 총무 양승권 매니저",support:"전 부서 협조",coord:"기획 김준성 책임 · 기획 진승길 매니저"},
+ {task:"ESG 평가",full:"개별 계열사 대응 주관",company:"세원테크",primary:"총무 이종완 매니저",support:"전 부서 협조",coord:"기획 김준성 책임 · 기획 진승길 매니저"},
+ {task:"ESG 평가",full:"개별 계열사 대응 주관",company:"세원이엔아이",primary:"총무 김민제 매니저",support:"전 부서 협조",coord:"기획 김준성 책임 · 기획 진승길 매니저"}
 ];
 const terms=[
  {cat:"탄소·에너지",term:"Scope 1",eng:"Direct Emissions",def:"사업장이 직접 소유·통제하는 배출원에서 발생하는 온실가스 배출.",usage:"보일러·법인차량·공정연료 등의 배출량 관리"},
@@ -22,8 +37,33 @@ const terms=[
  {cat:"자동차·제품환경",term:"CBAM",eng:"Carbon Border Adjustment Mechanism",def:"EU 수입품의 내재배출량에 탄소가격을 부과하는 탄소국경조정제도.",usage:"EU 수출 및 공급망 탄소정보 관리"}
 ];
 function renderRR(filter="전체",q=""){
- const list=rrData.filter(x=>(filter==="전체"||x.cat===filter)&&(`${x.title} ${x.lead} ${x.coop} ${x.role}`.toLowerCase().includes(q.toLowerCase())));
- $("#rrGrid").innerHTML=list.map(x=>`<article class="rr-card"><span class="cat">${x.cat}</span><h3>${x.title}</h3><dl><div><dt>주관</dt><dd><b>${x.lead}</b></dd></div><div><dt>협조</dt><dd>${x.coop}</dd></div><div><dt>주요 역할</dt><dd>${x.role}</dd></div></dl></article>`).join("");
+ const query=q.toLowerCase();
+ const list=rrData.filter(x=>(filter==="전체"||x.task===filter)&&(`${x.task} ${x.full} ${x.company} ${x.primary} ${x.support} ${x.coord}`.toLowerCase().includes(query)));
+
+ const grouped={};
+ list.forEach(x=>{
+   if(!grouped[x.task])grouped[x.task]=[];
+   grouped[x.task].push(x);
+ });
+
+ $("#rrGrid").innerHTML=Object.entries(grouped).map(([task,items])=>`
+   <section class="rr-task-group">
+     <div class="rr-task-head">
+       <div><span>${task}</span><strong>${items[0]?.full||""}</strong></div>
+       ${task==="ESG 평가"?'<em>계열사별 취합·조율: 기획 김준성 책임 · 기획 진승길 매니저</em>':""}
+     </div>
+     <div class="rr-company-grid">
+       ${items.map(x=>`
+         <article class="rr-card">
+           <div class="rr-company">${x.company}</div>
+           <dl>
+             <div><dt>정</dt><dd><b>${x.primary}</b></dd></div>
+             <div><dt>부</dt><dd>${x.support}</dd></div>
+             ${x.coord?`<div class="coord"><dt>총괄</dt><dd>${x.coord}</dd></div>`:""}
+           </dl>
+         </article>`).join("")}
+     </div>
+   </section>`).join("") || '<div class="rr-empty">검색 결과가 없습니다.</div>';
 }
 function renderTerms(){
  const q=$("#termSearch").value.toLowerCase(), c=$("#termCategory").value;
@@ -31,17 +71,116 @@ function renderTerms(){
  $("#termGrid").innerHTML=list.map(x=>`<article class="term-card"><span>${x.cat}</span><h3>${x.term} <small>${x.eng}</small></h3><p>${x.def}</p><div class="usage">활용: ${x.usage}</div></article>`).join("");
 }
 let y=2026,m=8;
-const events={"2026-09-08":["현대차·기아 ESG 보완자료 취합"],"2026-09-15":["온실가스 감축계획 내부 검토"],"2026-09-24":["CDP 대응자료 점검"]};
-const holidays={"2026-09-24":"추석휴무","2026-09-25":"추석","2026-09-26":"추석휴무","2026-09-27":"추석휴무","2026-09-28":"휴일중복"};
+const esgEvents={
+ "2026-09-08":["현대차·기아 ESG 보완자료 취합"],
+ "2026-09-15":["온실가스 감축계획 내부 검토"],
+ "2026-09-24":["CDP 대응자료 점검"]
+};
+
+const workCalendar={
+ "2026-01-01":{name:"신정",type:"holiday"},
+ "2026-01-02":{name:"신정휴무",type:"company"},
+ "2026-02-16":{name:"설날휴무",type:"company"},
+ "2026-02-17":{name:"설날",type:"holiday"},
+ "2026-02-18":{name:"설날휴무",type:"company"},
+ "2026-02-19":{name:"설날휴무",type:"company"},
+ "2026-02-20":{name:"휴무일 조정 (5/25 → 2/20)",type:"company"},
+ "2026-03-01":{name:"삼일절",type:"holiday"},
+ "2026-03-02":{name:"휴일중복",type:"company"},
+ "2026-05-01":{name:"노동절",type:"holiday"},
+ "2026-05-05":{name:"어린이날",type:"holiday"},
+ "2026-05-24":{name:"석가탄신일",type:"holiday"},
+ "2026-05-25":{name:"휴일중복 / 휴무일 조정",type:"company"},
+ "2026-06-03":{name:"전국동시지방선거",type:"holiday"},
+ "2026-06-06":{name:"현충일",type:"holiday"},
+ "2026-07-28":{name:"하기휴무",type:"company"},
+ "2026-07-29":{name:"하기휴무",type:"company"},
+ "2026-07-30":{name:"하기휴무",type:"company"},
+ "2026-07-31":{name:"하기휴무",type:"company"},
+ "2026-08-01":{name:"하기휴무",type:"company"},
+ "2026-08-03":{name:"하기휴무",type:"company"},
+ "2026-08-04":{name:"하기휴무",type:"company"},
+ "2026-08-05":{name:"하기휴무",type:"company"},
+ "2026-08-06":{name:"하기휴무",type:"company"},
+ "2026-08-07":{name:"하기휴무",type:"company"},
+ "2026-08-15":{name:"광복절",type:"holiday"},
+ "2026-08-17":{name:"휴일중복",type:"company"},
+ "2026-09-24":{name:"추석휴무",type:"company"},
+ "2026-09-25":{name:"추석",type:"holiday"},
+ "2026-09-26":{name:"추석휴무",type:"company"},
+ "2026-09-27":{name:"추석휴무",type:"company"},
+ "2026-09-28":{name:"휴일중복",type:"company"},
+ "2026-10-03":{name:"개천절",type:"holiday"},
+ "2026-10-05":{name:"휴일중복",type:"company"},
+ "2026-10-09":{name:"한글날",type:"holiday"},
+ "2026-12-25":{name:"기독탄신일",type:"holiday"}
+};
+
+const monthlyWorkdays={1:20,2:15,3:21,4:22,5:19,6:22,7:23,8:15,9:19,10:20,11:21,12:22};
 function fmt(d){return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
 function renderCalendar(){
- $("#calendarTitle").textContent=`${y}년 ${m+1}월`; $("#eventTitle").textContent=`${y}년 ${m+1}월 일정`;
- const first=new Date(y,m,1), start=new Date(y,m,1-first.getDay());
+ const month=m+1;
+ $("#calendarTitle").textContent=`${y}년 ${month}월`;
+ $("#eventTitle").textContent=`${y}년 ${month}월 주요 일정`;
+
+ const first=new Date(y,m,1);
+ const start=new Date(y,m,1-first.getDay());
+ const todayKey="2026-09-03";
  let html="";
- for(let i=0;i<42;i++){const d=new Date(start);d.setDate(start.getDate()+i);const key=fmt(d),other=d.getMonth()!==m,holiday=holidays[key],today=key==="2026-09-03";html+=`<div class="day ${other?"other":""} ${holiday?"holiday":""} ${today?"today":""}">${today?`<b>${d.getDate()}</b>`:d.getDate()}${events[key]?'<i></i>':""}</div>`}
+
+ for(let i=0;i<42;i++){
+   const d=new Date(start);
+   d.setDate(start.getDate()+i);
+   const key=fmt(d);
+   const other=d.getMonth()!==m;
+   const cal=workCalendar[key];
+   const hasEsg=!!esgEvents[key];
+   const isToday=key===todayKey;
+   const dow=d.getDay();
+
+   const classes=[
+     "day",
+     other?"other":"",
+     cal?"holiday":"",
+     cal?.type==="company"?"company-off":"",
+     isToday?"today":"",
+     dow===0?"sun-day":"",
+     dow===6?"sat-day":""
+   ].filter(Boolean).join(" ");
+
+   html+=`<button type="button" class="${classes}" data-date="${key}" title="${cal?.name||""}">
+     <span class="date-num">${isToday?`<b>${d.getDate()}</b>`:d.getDate()}</span>
+     ${isToday?'<span class="today-pill">TODAY</span>':""}
+     ${cal&&!other?`<small class="holiday-name">${cal.name}</small>`:""}
+     ${hasEsg?'<i class="event-dot"></i>':""}
+   </button>`;
+ }
  $("#calendarGrid").innerHTML=html;
- const monthEvents=Object.entries(events).filter(([k])=>k.startsWith(`${y}-${String(m+1).padStart(2,"0")}`));
- $("#eventCount").textContent=`${monthEvents.length}건`;$("#eventList").innerHTML=monthEvents.length?monthEvents.map(([k,v])=>`<div class="event-row"><b>${k.slice(5).replace("-",".")} ${v[0]}</b><small>관련 부서 일정 확인 필요</small></div>`).join(""):`<div class="event-row"><small>등록된 일정이 없습니다.</small></div>`;
+
+ const prefix=`${y}-${String(month).padStart(2,"0")}`;
+ const calendarItems=Object.entries(workCalendar)
+   .filter(([k])=>k.startsWith(prefix))
+   .map(([date,v])=>({date,title:v.name,kind:v.type==="holiday"?"공휴일":"회사휴무"}));
+ const esgItems=Object.entries(esgEvents)
+   .filter(([k])=>k.startsWith(prefix))
+   .flatMap(([date,arr])=>arr.map(title=>({date,title,kind:"ESG"})));
+
+ const all=[...calendarItems,...esgItems].sort((a,b)=>a.date.localeCompare(b.date));
+ $("#eventCount").textContent=`${all.length}건`;
+
+ const workdays=monthlyWorkdays[month]||"-";
+ $("#workdayCount").textContent=workdays;
+ const holidayDates=new Set(calendarItems.map(x=>x.date));
+ $("#holidayCount").textContent=holidayDates.size;
+
+ $("#eventList").innerHTML=all.length?all.map(x=>`
+   <div class="event-row ${x.kind==="ESG"?"esg":x.kind==="공휴일"?"public-holiday":"company-holiday"}">
+     <div class="event-date">${x.date.slice(5).replace("-",".")}</div>
+     <div><b>${x.title}</b><small>${x.kind}</small></div>
+   </div>`).join(""):`
+   <div class="event-empty">
+     <span>▣</span><b>등록된 일정이 없습니다.</b><small>다른 월을 선택해 주세요.</small>
+   </div>`;
 }
 function scrollToSection(id){
  const el=document.getElementById(id);if(!el)return;
