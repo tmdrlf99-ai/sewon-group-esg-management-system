@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>SEWON GROUP ESG MANAGEMENT SYSTEM</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-logo">SEWON</div>
+      <span>GROUP ESG MANAGEMENT</span>
+    </div>
+
+    <div class="nav-caption">ESG MANAGEMENT</div>
+    <nav class="nav">
+      <a href="#home" class="active" data-target="home"><b>⌂</b><span>홈</span></a>
+      <a href="#calendar" data-target="calendar"><b>▣</b><span>ESG 일정</span></a>
+      <a href="#notice" data-target="notice"><b>!</b><span>공지사항</span></a>
+      <a href="#rr" data-target="rr"><b>R</b><span>R&amp;R</span></a>
+      <a href="#glossary" data-target="glossary"><b>Aa</b><span>ESG 용어</span></a>
+    </nav>
+
+    <div class="side-box">
+      <strong>SEWON GROUP ESG</strong>
+      <p>정책·일정·역할·업무기준을 한 곳에서 확인하는 사내 ESG 업무지원 포털</p>
+      <div class="company-chips">
+        <span>세원정공</span><span>세원물산</span><span>세원테크</span><span>세원이엔아이</span>
+      </div>
+    </div>
+  </aside>
+
+  <div class="page">
+    <header class="topbar">
+      <span class="status-dot"></span>
+      <span>SEWON GROUP ESG MANAGEMENT SYSTEM</span>
+      <button type="button">관리자</button>
+    </header>
+
+    <main>
+      <section id="home" class="hero section">
+        <div class="hero-copy">
+          <span class="eyebrow">SEWON GROUP ESG MANAGEMENT SYSTEM</span>
+          <h1>ESG 업무를<br><em>한 곳에서 관리합니다.</em></h1>
+          <p>그룹 ESG 일정, 공지사항, 부서별 R&amp;R, 주요 ESG 용어와 업무기준을 빠르게 확인하세요.</p>
+          <div class="hero-search">
+            <span>⌕</span>
+            <input id="globalSearch" placeholder="ESG 업무, 담당부서, 용어를 검색해 보세요"/>
+            <button id="searchBtn" type="button">통합검색</button>
+          </div>
+          <div class="hero-tags"><span># ESG 평가</span><span># 온실가스</span><span># 공급망</span><span># 안전보건</span></div>
+        </div>
+        <div class="hero-side">
+          <span>GROUP ESG OFFICE</span>
+          <strong>기획실 ESG Control Tower</strong>
+          <p>전사 ESG 평가·공시·온실가스·공급망 대응을 위한 그룹 공통 업무지원 체계</p>
+          <div class="hero-side-grid">
+            <div><b>4</b><small>운영 계열사</small></div>
+            <div><b>9</b><small>핵심 ESG 영역</small></div>
+            <div><b>131</b><small>ESG 용어</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="quick-grid">
+        <a href="#calendar"><span class="quick-icon">▣</span><div><small>일정관리</small><strong>ESG 일정</strong><p>평가·공시·검증·교육 일정</p></div><b>→</b></a>
+        <a href="#notice"><span class="quick-icon">!</span><div><small>공지 및 요청</small><strong>공지사항</strong><p>자료제출·평가·교육 안내</p></div><b>→</b></a>
+        <a href="#rr"><span class="quick-icon">R</span><div><small>업무별 담당</small><strong>R&amp;R</strong><p>ESG 업무별 주관·협조부서</p></div><b>→</b></a>
+        <a href="#glossary"><span class="quick-icon">Aa</span><div><small>업무기준 이해</small><strong>ESG 용어</strong><p>자동차 산업 ESG 핵심용어</p></div><b>→</b></a>
+      </section>
+
+      <section class="dashboard-grid">
+        <article class="card">
+          <div class="card-head"><div><span>THIS MONTH</span><h2>이번 달 주요 일정</h2></div><strong>2026.09</strong></div>
+          <div class="timeline">
+            <div><time>09.08</time><p><b>현대차·기아 공급망 ESG</b><small>부서별 보완자료 취합</small></p><span class="tag red">D-5</span></div>
+            <div><time>09.15</time><p><b>온실가스 감축계획</b><small>2026~2030 계획 내부 검토</small></p><span class="tag">예정</span></div>
+            <div><time>09.24</time><p><b>CDP 대응자료 점검</b><small>환경·재경 데이터 정합성 확인</small></p><span class="tag">예정</span></div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head"><div><span>NOTICE</span><h2>최근 공지사항</h2></div><a href="#notice">전체보기 →</a></div>
+          <div class="notice-mini">
+            <button data-open="n1"><span>중요</span><b>2026 하반기 ESG 주요 일정 안내</b><time>09.02</time></button>
+            <button data-open="n2"><span>평가</span><b>현대차·기아 ESG 보완자료 제출 요청</b><time>08.28</time></button>
+            <button data-open="n3"><span>교육</span><b>협력사 ESG 담당자 교육자료 공유</b><time>08.20</time></button>
+          </div>
+        </article>
+      </section>
+
+      <section id="calendar" class="panel section">
+        <div class="section-head">
+          <span>ESG CALENDAR</span>
+          <h2>ESG 일정</h2>
+          <p>평가·공시·온실가스 검증·교육·자료제출 등 그룹 ESG 주요 일정을 확인합니다.</p>
+        </div>
+        <div class="calendar-toolbar">
+          <button id="prevMonth">‹</button><strong id="calendarTitle">2026년 9월</strong><button id="nextMonth">›</button>
+          <button id="todayBtn" class="subtle">현재 월</button>
+        </div>
+        <div class="calendar-layout">
+          <div class="calendar">
+            <div class="week"><span class="sun">일</span><span>월</span><span>화</span><span>수</span><span>목</span><span>금</span><span class="sat">토</span></div>
+            <div id="calendarGrid" class="calendar-grid"></div>
+          </div>
+          <aside class="event-panel">
+            <div class="event-head"><div><span>EVENTS</span><h3 id="eventTitle">2026년 9월 일정</h3></div><b id="eventCount">3건</b></div>
+            <div id="eventList"></div>
+          </aside>
+        </div>
+      </section>
+
+      <section id="notice" class="panel section">
+        <div class="section-head">
+          <span>NOTICE BOARD</span>
+          <h2>공지사항</h2>
+          <p>ESG 평가 대응, 자료제출, 교육 및 내부 운영 관련 공지를 확인합니다.</p>
+        </div>
+        <div class="board">
+          <div class="board-head"><span>번호</span><span>구분</span><span>제목</span><span>등록일</span></div>
+          <div class="board-item">
+            <button><span>3</span><em>중요</em><b>2026 하반기 ESG 주요 일정 안내</b><time>2026.09.02</time></button>
+            <div class="board-content">2026년 하반기 ESG 주요 평가 및 내부 대응 일정을 공유합니다. 부서별 제출기한을 확인해 주세요.</div>
+          </div>
+          <div class="board-item">
+            <button><span>2</span><em>평가</em><b>현대차·기아 ESG 보완자료 제출 요청</b><time>2026.08.28</time></button>
+            <div class="board-content">현대차·기아 공급망 ESG 평가 관련 보완자료를 담당부서별로 취합합니다.</div>
+          </div>
+          <div class="board-item">
+            <button><span>1</span><em>교육</em><b>협력사 ESG 담당자 교육자료 공유</b><time>2026.08.20</time></button>
+            <div class="board-content">협력사 ESG 담당자 교육자료를 공유합니다. 관련 부서는 업무 참고 바랍니다.</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="rr" class="panel section">
+        <div class="section-head">
+          <span>ROLES & RESPONSIBILITIES</span>
+          <h2>ESG R&amp;R</h2>
+          <p>ESG 업무별 주관부서와 협조부서를 확인합니다.</p>
+        </div>
+        <div class="rr-tools">
+          <input id="rrSearch" placeholder="예: 온실가스, 인권, 공급망, 환경안전"/>
+          <div class="rr-chips">
+            <button class="active" data-filter="전체">전체</button>
+            <button data-filter="환경">환경</button>
+            <button data-filter="사회">사회</button>
+            <button data-filter="거버넌스">거버넌스</button>
+            <button data-filter="공급망">공급망</button>
+          </div>
+        </div>
+        <div id="rrGrid" class="rr-grid"></div>
+      </section>
+
+      <section id="glossary" class="panel section">
+        <div class="section-head">
+          <span>ESG GLOSSARY</span>
+          <h2>ESG 용어</h2>
+          <p>자동차·부품업계에서 자주 사용하는 ESG 핵심용어를 빠르게 찾아보세요.</p>
+        </div>
+        <div class="glossary-tools">
+          <input id="termSearch" placeholder="용어명·약어·관련 키워드 검색"/>
+          <select id="termCategory">
+            <option value="전체">전체 분야</option>
+            <option>탄소·에너지</option><option>평가·공시</option><option>공급망·인권</option><option>자동차·제품환경</option>
+          </select>
+        </div>
+        <div class="chips"><button>Scope 1</button><button>Scope 2</button><button>Scope 3</button><button>EcoVadis</button><button>CBAM</button><button>LCA</button><button>CSDDD</button><button>ISO 14001</button></div>
+        <div id="termGrid" class="term-grid"></div>
+      </section>
+
+      <footer>
+        <strong>SEWON GROUP ESG MANAGEMENT SYSTEM</strong>
+        <span>세원정공 · 세원물산 · 세원테크 · 세원이엔아이</span>
+      </footer>
+    </main>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>
