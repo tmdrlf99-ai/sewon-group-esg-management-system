@@ -43,10 +43,74 @@ function renderCalendar(){
  const monthEvents=Object.entries(events).filter(([k])=>k.startsWith(`${y}-${String(m+1).padStart(2,"0")}`));
  $("#eventCount").textContent=`${monthEvents.length}건`;$("#eventList").innerHTML=monthEvents.length?monthEvents.map(([k,v])=>`<div class="event-row"><b>${k.slice(5).replace("-",".")} ${v[0]}</b><small>관련 부서 일정 확인 필요</small></div>`).join(""):`<div class="event-row"><small>등록된 일정이 없습니다.</small></div>`;
 }
+function scrollToSection(id){
+ const el=document.getElementById(id);if(!el)return;
+ const mobile=window.innerWidth<=760;
+ const offset=mobile?72:76;
+ const y=el.getBoundingClientRect().top+window.scrollY-offset;
+ window.scrollTo({top:y,behavior:"smooth"});
+ history.replaceState(null,"",`#${id}`);
+}
+
 function initScrollSpy(){
- const ids=["home","calendar","notice","rr","glossary"],links=$$(".nav a[data-target]");
- const update=()=>{let cur="home",line=90;ids.forEach(id=>{const el=document.getElementById(id);if(el&&el.getBoundingClientRect().top<=line)cur=id});links.forEach(a=>a.classList.toggle("active",a.dataset.target===cur))}
- window.addEventListener("scroll",()=>requestAnimationFrame(update),{passive:true});update()
+ const ids=["home","calendar","notice","rr","glossary"];
+ const links=$$(".nav a[data-target]");
+ if(!links.length)return;
+
+ let lastY=window.scrollY;
+ let active="home";
+
+ const setActive=id=>{
+   active=id;
+   links.forEach(a=>a.classList.toggle("active",a.dataset.target===id));
+ };
+
+ const visibleHeight=(el,topOffset)=>{
+   const r=el.getBoundingClientRect();
+   const top=Math.max(r.top,topOffset);
+   const bottom=Math.min(r.bottom,window.innerHeight);
+   return Math.max(0,bottom-top);
+ };
+
+ const update=()=>{
+   const now=window.scrollY;
+   const down=now>=lastY;
+   const topOffset=window.innerWidth<=760?74:78;
+   let current=active;
+
+   if(down){
+     current="home";
+     const line=topOffset+46;
+     ids.forEach(id=>{
+       const el=document.getElementById(id);
+       if(el&&el.getBoundingClientRect().top<=line)current=id;
+     });
+   }else{
+     let best=active,bestVisible=-1;
+     ids.forEach(id=>{
+       const el=document.getElementById(id);if(!el)return;
+       const v=visibleHeight(el,topOffset);
+       if(v>bestVisible){bestVisible=v;best=id}
+     });
+     const activeEl=document.getElementById(active);
+     const activeVisible=activeEl?visibleHeight(activeEl,topOffset):0;
+     if(best===active||bestVisible>=activeVisible+70||activeVisible<90)current=best;
+   }
+
+   if(window.innerHeight+now>=document.documentElement.scrollHeight-25)current="glossary";
+   if(current!==active)setActive(current);
+   lastY=now;
+ };
+
+ let ticking=false;
+ const onScroll=()=>{
+   if(ticking)return;
+   ticking=true;
+   requestAnimationFrame(()=>{update();ticking=false});
+ };
+ window.addEventListener("scroll",onScroll,{passive:true});
+ window.addEventListener("resize",onScroll);
+ setTimeout(update,80);
 }
 $$(".board-item button").forEach(b=>b.addEventListener("click",()=>b.parentElement.classList.toggle("open")));
 $$(".rr-chips button").forEach(b=>b.addEventListener("click",()=>{$$(".rr-chips button").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderRR(b.dataset.filter,$("#rrSearch").value)}));
@@ -55,4 +119,12 @@ $("#termSearch").addEventListener("input",renderTerms);$("#termCategory").addEve
 $$(".chips button").forEach(b=>b.addEventListener("click",()=>{$("#termSearch").value=b.textContent;renderTerms()}));
 $("#prevMonth").addEventListener("click",()=>{m--;if(m<0){m=11;y--}renderCalendar()});$("#nextMonth").addEventListener("click",()=>{m++;if(m>11){m=0;y++}renderCalendar()});$("#todayBtn").addEventListener("click",()=>{y=2026;m=8;renderCalendar()});
 $("#searchBtn").addEventListener("click",()=>{const q=$("#globalSearch").value.trim();if(!q)return;const r=rrData.find(x=>`${x.title} ${x.role}`.includes(q));if(r){location.hash="rr";$("#rrSearch").value=q;renderRR("전체",q);return}$("#termSearch").value=q;renderTerms();location.hash="glossary"});
+
+$$(".js-section-link").forEach(a=>a.addEventListener("click",e=>{
+ const id=a.dataset.scrollTarget||a.dataset.target;
+ if(!id)return;
+ e.preventDefault();
+ scrollToSection(id);
+}));
+
 renderRR();renderTerms();renderCalendar();initScrollSpy();
