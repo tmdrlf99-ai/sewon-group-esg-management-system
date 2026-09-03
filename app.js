@@ -83,12 +83,12 @@ function renderCalendar(){
   const dayEvents=events.filter(x=>x.event_date===key);
   const cal=dayEvents.find(x=>x.category==="공휴일"||x.category==="회사휴무");
   const esgList=dayEvents.filter(x=>x.category==="ESG");
-  const classes=["day",other?"other":"",cal?"holiday":"",cal?.category==="회사휴무"?"company-off":"",key===today?"today":"",key===selectedDate?"selected-day":"",dow===0?"sun-day":"",dow===6?"sat-day":""].filter(Boolean).join(" ");
+  const classes=["day",other?"other":"",cal?"holiday":"",cal?.category==="공휴일"?"public-holiday":"",cal?.category==="회사휴무"?"company-off":"",key===today?"today":"",key===selectedDate?"selected-day":"",dow===0?"sun-day":"",dow===6?"sat-day":""].filter(Boolean).join(" ");
   html+=`<button type="button" class="${classes}" data-date="${key}" title="${escapeHtml(dayEvents.map(x=>x.title).join(' · '))}">
     <span class="date-num">${key===today?`<b>${d.getDate()}</b>`:d.getDate()}</span>
     ${key===today?'<span class="today-pill">TODAY</span>':""}
     <span class="day-labels">
-      ${cal&&!other?`<small class="holiday-name">${escapeHtml(cal.title)}</small>`:""}
+      ${cal&&!other?`<small class="holiday-name ${cal.category==="공휴일"?"public-holiday-name":"company-off-name"}">${escapeHtml(cal.title)}</small>`:""}
       ${!other?esgList.slice(0,2).map(x=>`<small class="esg-name">${escapeHtml(x.title)}</small>`).join(""):""}
     </span>
     ${esgList.length?'<i class="event-dot"></i>':""}

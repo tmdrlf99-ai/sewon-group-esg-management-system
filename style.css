@@ -1720,3 +1720,31 @@ body{font-size:var(--fs-base)!important}
   .holiday-name,.esg-name{font-size:6.4px !important;}
   .day-labels{margin-top:4px;gap:1px;}
 }
+
+
+/* ===== v4.7 공휴일/회사휴무 색상 구분 ===== */
+/* 법정 공휴일: 날짜 숫자와 공휴일명을 명확한 빨간색으로 표시 */
+.calendar-grid .day.public-holiday:not(.other) .date-num{
+  color:#d32f2f !important;
+  font-weight:900 !important;
+}
+.calendar-grid .day.public-holiday:not(.other){
+  background:linear-gradient(145deg,#fffafa,#fff3f3) !important;
+}
+.calendar-grid .day .public-holiday-name{
+  color:#d32f2f !important;
+  font-weight:800 !important;
+}
+
+/* 회사 자체 휴무: 공휴일과 구분되는 주황/갈색 계열 */
+.calendar-grid .day.company-off:not(.other) .date-num{
+  color:#c76445 !important;
+  font-weight:900 !important;
+}
+.calendar-grid .day.company-off:not(.other){
+  background:linear-gradient(145deg,#fffaf5,#fff6ef) !important;
+}
+.calendar-grid .day .company-off-name{
+  color:#c76445 !important;
+  font-weight:800 !important;
+}
