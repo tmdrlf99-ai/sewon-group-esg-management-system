@@ -4,7 +4,7 @@ const cfg=window.SEWON_CONFIG||{};
 const supabaseClient=window.supabase.createClient(cfg.SUPABASE_URL,cfg.SUPABASE_ANON_KEY);
 
 let rrData=[],terms=[],notices=[],events=[],monthMeta=[];
-let y=new Date().getFullYear(),m=new Date().getMonth();
+let y=new Date().getFullYear(),m=new Date().getMonth(),selectedDate="";
 
 const contentMap={
  topbar_text:"topbarText",hero_eyebrow:"heroEyebrow",hero_title1:"heroTitle1",hero_title2:"heroTitle2",
@@ -74,7 +74,6 @@ function renderDashboard(){
 function renderCalendar(){
  const month=m+1;
  $("#calendarTitle").textContent=`${y}년 ${month}월`;
- $("#eventTitle").textContent=`${y}년 ${month}월 주요 일정`;
  const first=new Date(y,m,1),start=new Date(y,m,1-first.getDay());
  const today=fmt(new Date());
  let html="";
@@ -83,28 +82,43 @@ function renderCalendar(){
   const key=fmt(d),other=d.getMonth()!==m,dow=d.getDay();
   const dayEvents=events.filter(x=>x.event_date===key);
   const cal=dayEvents.find(x=>x.category==="공휴일"||x.category==="회사휴무");
-  const hasEsg=dayEvents.some(x=>x.category==="ESG");
-  const classes=["day",other?"other":"",cal?"holiday":"",cal?.category==="회사휴무"?"company-off":"",key===today?"today":"",dow===0?"sun-day":"",dow===6?"sat-day":""].filter(Boolean).join(" ");
-  html+=`<button type="button" class="${classes}" data-date="${key}" title="${escapeHtml(cal?.title||"")}">
+  const esgList=dayEvents.filter(x=>x.category==="ESG");
+  const classes=["day",other?"other":"",cal?"holiday":"",cal?.category==="회사휴무"?"company-off":"",key===today?"today":"",key===selectedDate?"selected-day":"",dow===0?"sun-day":"",dow===6?"sat-day":""].filter(Boolean).join(" ");
+  html+=`<button type="button" class="${classes}" data-date="${key}" title="${escapeHtml(dayEvents.map(x=>x.title).join(' · '))}">
     <span class="date-num">${key===today?`<b>${d.getDate()}</b>`:d.getDate()}</span>
     ${key===today?'<span class="today-pill">TODAY</span>':""}
-    ${cal&&!other?`<small class="holiday-name">${escapeHtml(cal.title)}</small>`:""}
-    ${hasEsg?'<i class="event-dot"></i>':""}
+    <span class="day-labels">
+      ${cal&&!other?`<small class="holiday-name">${escapeHtml(cal.title)}</small>`:""}
+      ${!other?esgList.slice(0,2).map(x=>`<small class="esg-name">${escapeHtml(x.title)}</small>`).join(""):""}
+    </span>
+    ${esgList.length?'<i class="event-dot"></i>':""}
   </button>`;
  }
  $("#calendarGrid").innerHTML=html;
+ $("#calendarGrid").querySelectorAll(".day").forEach(btn=>btn.addEventListener("click",()=>{
+   selectedDate=btn.dataset.date;
+   renderCalendar();
+ }));
 
  const prefix=`${y}-${String(month).padStart(2,"0")}`;
  const monthEvents=events.filter(x=>x.event_date?.startsWith(prefix));
- $("#eventCount").textContent=`${monthEvents.length}건`;
  const meta=monthMeta.find(x=>Number(x.year)===y&&Number(x.month)===month);
  $("#workdayCount").textContent=meta?.workdays ?? "-";
  $("#holidayCount").textContent=new Set(monthEvents.filter(x=>x.category==="공휴일"||x.category==="회사휴무").map(x=>x.event_date)).size;
- $("#eventList").innerHTML=monthEvents.length?monthEvents.map(x=>`
+
+ const shownEvents=selectedDate ? events.filter(x=>x.event_date===selectedDate) : monthEvents;
+ if(selectedDate){
+   const [sy,sm,sd]=selectedDate.split("-");
+   $("#eventTitle").textContent=`${Number(sm)}월 ${Number(sd)}일 일정`;
+ }else{
+   $("#eventTitle").textContent=`${y}년 ${month}월 주요 일정`;
+ }
+ $("#eventCount").textContent=`${shownEvents.length}건`;
+ $("#eventList").innerHTML=shownEvents.length?shownEvents.map(x=>`
  <div class="event-row ${x.category==="ESG"?"esg":x.category==="공휴일"?"public-holiday":"company-holiday"}">
   <div class="event-date">${x.event_date.slice(5).replace("-",".")}</div>
   <div><b>${escapeHtml(x.title)}</b><small>${escapeHtml(x.category)}${x.description?` · ${escapeHtml(x.description)}`:""}</small></div>
- </div>`).join(""):`<div class="event-empty"><span>▣</span><b>등록된 일정이 없습니다.</b><small>다른 월을 선택해 주세요.</small></div>`;
+ </div>`).join(""):`<div class="event-empty"><span>▣</span><b>등록된 일정이 없습니다.</b><small>다른 날짜를 선택해 주세요.</small></div>`;
 }
 
 function renderNoticeBoard(){
@@ -168,9 +182,9 @@ function initScrollSpy(){
  let tick=false;addEventListener("scroll",()=>{if(tick)return;tick=true;requestAnimationFrame(()=>{update();tick=false})},{passive:true});addEventListener("resize",update);setTimeout(update,80);
 }
 
-$("#prevMonth")?.addEventListener("click",()=>{m--;if(m<0){m=11;y--}renderCalendar()});
-$("#nextMonth")?.addEventListener("click",()=>{m++;if(m>11){m=0;y++}renderCalendar()});
-$("#todayBtn")?.addEventListener("click",()=>{const d=new Date();y=d.getFullYear();m=d.getMonth();renderCalendar()});
+$("#prevMonth")?.addEventListener("click",()=>{selectedDate="";m--;if(m<0){m=11;y--}renderCalendar()});
+$("#nextMonth")?.addEventListener("click",()=>{selectedDate="";m++;if(m>11){m=0;y++}renderCalendar()});
+$("#todayBtn")?.addEventListener("click",()=>{selectedDate="";const d=new Date();y=d.getFullYear();m=d.getMonth();renderCalendar()});
 $("#rrSearch")?.addEventListener("input",()=>renderRR($(".rr-chips button.active")?.dataset.filter||"전체",$("#rrSearch").value));
 $$(".rr-chips button").forEach(b=>b.addEventListener("click",()=>{$$(".rr-chips button").forEach(x=>x.classList.remove("active"));b.classList.add("active");renderRR(b.dataset.filter,$("#rrSearch")?.value||"")}));
 $("#termSearch")?.addEventListener("input",renderTerms);$("#termCategory")?.addEventListener("change",renderTerms);
