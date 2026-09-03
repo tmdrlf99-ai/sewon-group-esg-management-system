@@ -778,3 +778,113 @@ body{font-size:16px}
     word-break:keep-all !important;
   }
 }
+
+
+/* ===== v3.3 R&R 레이아웃 근본 수정 =====
+   4열 강제 배치를 폐기하고 2열×2행으로 변경하여
+   부서/성명/직급 문구가 어색하게 분리되지 않도록 함.
+*/
+.rr-task-group{
+  overflow:hidden !important;
+}
+.rr-company-grid{
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+}
+.rr-card{
+  min-height:205px !important;
+  padding:22px 24px !important;
+  border-right:1px solid #e3e9ec !important;
+  border-bottom:1px solid #e3e9ec !important;
+}
+.rr-card:nth-child(2n){
+  border-right:0 !important;
+}
+.rr-card:nth-last-child(-n+2){
+  border-bottom:0 !important;
+}
+.rr-company{
+  font-size:17px !important;
+  line-height:1.4 !important;
+  margin-bottom:18px !important;
+}
+.rr-card dl{
+  gap:13px !important;
+}
+.rr-card dl div{
+  grid-template-columns:40px minmax(0,1fr) !important;
+  gap:11px !important;
+}
+.rr-card dt{
+  width:34px !important;
+  height:30px !important;
+  font-size:10px !important;
+  border-radius:8px !important;
+}
+.rr-card dd{
+  font-size:13px !important;
+  line-height:1.75 !important;
+  letter-spacing:-.15px !important;
+}
+.rr-card dd.people{
+  gap:6px !important;
+}
+.person-line{
+  display:block !important;
+  width:max-content;
+  max-width:100%;
+  white-space:nowrap !important;
+  word-break:keep-all !important;
+  overflow-wrap:normal !important;
+  font-size:13px !important;
+  line-height:1.65 !important;
+}
+.person-note{
+  display:block;
+  margin-top:2px;
+  font-size:11.5px !important;
+  line-height:1.55 !important;
+  color:#6f818c;
+  white-space:nowrap !important;
+  word-break:keep-all !important;
+}
+.rr-task-head{
+  padding:16px 20px !important;
+}
+.rr-task-head>div span{
+  font-size:11px !important;
+}
+.rr-task-head>div strong{
+  font-size:15px !important;
+}
+
+/* 중간 폭에서도 2열 유지하되 충분한 폭 확보 */
+@media(max-width:900px){
+  .rr-company-grid{
+    grid-template-columns:1fr !important;
+  }
+  .rr-card{
+    border-right:0 !important;
+    border-bottom:1px solid #e3e9ec !important;
+    min-height:auto !important;
+  }
+  .rr-card:last-child{
+    border-bottom:0 !important;
+  }
+}
+
+/* 모바일에서는 필요 시 자연 줄바꿈 허용 */
+@media(max-width:560px){
+  .person-line,
+  .person-note{
+    width:auto;
+    white-space:normal !important;
+    word-break:keep-all !important;
+  }
+  .rr-card{
+    padding:18px 16px !important;
+  }
+  .rr-card dd{
+    font-size:12px !important;
+  }
+}

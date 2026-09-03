@@ -38,9 +38,18 @@ const terms=[
 ];
 function formatPeople(text){
  if(!text||text==="-")return '<span class="person-line muted">-</span>';
- return String(text)
+
+ const parts=String(text)
    .split(" · ")
-   .map(v=>`<span class="person-line">${v}</span>`)
+   .map(v=>v.trim())
+   .filter(Boolean);
+
+ return parts
+   .map(v=>{
+     const safe=v
+       .replace(" (2차사 협조/전달)", '<small class="person-note">(2차사 협조/전달)</small>');
+     return `<span class="person-line">${safe}</span>`;
+   })
    .join("");
 }
 
