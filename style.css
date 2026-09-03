@@ -654,3 +654,85 @@ body{font-size:16px}
   .rr-card:nth-child(-n+2){border-bottom:1px solid #e5eaed !important}
   .rr-task-head em{font-size:9.5px}
 }
+
+
+/* ===== v3.1 R&R 한글 줄바꿈 보정 ===== */
+.rr-task-group,
+.rr-company-grid,
+.rr-card,
+.rr-card dl,
+.rr-card dl div,
+.rr-card dd,
+.rr-card dd b,
+.rr-company{
+  min-width:0;
+}
+.rr-card dd,
+.rr-card dd b,
+.rr-company,
+.rr-task-head,
+.rr-task-head strong,
+.rr-task-head em{
+  word-break:keep-all !important;
+  overflow-wrap:normal !important;
+  white-space:normal !important;
+}
+.rr-card dd{
+  line-height:1.75 !important;
+  letter-spacing:-.12px;
+}
+.rr-card dd b{
+  display:inline;
+  line-height:1.75 !important;
+}
+.rr-company{
+  font-size:15px !important;
+  margin-bottom:15px !important;
+}
+.rr-card{
+  padding:19px 18px !important;
+}
+.rr-company-grid{
+  grid-template-columns:repeat(4,minmax(220px,1fr)) !important;
+}
+.rr-task-group{
+  overflow-x:auto;
+  scrollbar-width:thin;
+}
+.rr-task-group::-webkit-scrollbar{height:7px}
+.rr-task-group::-webkit-scrollbar-thumb{
+  background:#d5e0e4;
+  border-radius:999px;
+}
+@media(max-width:1180px){
+  .rr-company-grid{
+    grid-template-columns:repeat(2,minmax(260px,1fr)) !important;
+  }
+  .rr-card:nth-child(2n){border-right:0 !important}
+}
+@media(max-width:760px){
+  .rr-company-grid{
+    grid-template-columns:1fr !important;
+  }
+  .rr-task-group{
+    overflow-x:hidden !important;
+  }
+  .rr-card{
+    padding:17px 15px !important;
+  }
+  .rr-card dd{
+    font-size:11.5px !important;
+  }
+}
+
+.top-admin-link{
+  margin-left:auto;
+  background:var(--navy);
+  color:#fff;
+  border:0;
+  border-radius:8px;
+  padding:8px 13px;
+  font-size:10px;
+  font-weight:700;
+  text-decoration:none;
+}
