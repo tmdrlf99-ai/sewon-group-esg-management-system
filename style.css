@@ -736,3 +736,45 @@ body{font-size:16px}
   font-weight:700;
   text-decoration:none;
 }
+
+
+/* ===== v3.2 R&R 담당자 단위 줄바꿈 ===== */
+.rr-card dd.people{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:4px;
+  min-width:0;
+}
+.rr-card dd.people.primary{
+  color:#17384f;
+  font-weight:800;
+}
+.person-line{
+  display:block;
+  max-width:100%;
+  white-space:nowrap !important;
+  word-break:keep-all !important;
+  overflow-wrap:normal !important;
+  line-height:1.6;
+}
+.person-line.muted{
+  color:#8a989f;
+}
+.rr-card dl div{
+  align-items:flex-start !important;
+}
+.rr-card dt{
+  flex:0 0 auto;
+}
+@media(max-width:1180px){
+  .rr-company-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  }
+}
+@media(max-width:760px){
+  .person-line{
+    white-space:normal !important;
+    word-break:keep-all !important;
+  }
+}
