@@ -1141,3 +1141,27 @@ body{font-size:16px}
     font-size:8.5px;
   }
 }
+
+
+/* ===== v3.5.1 달력 격자선 보정 ===== */
+
+/* 요일 헤더 바로 아래에도 동일한 회색 경계선 */
+.week{
+  border-bottom:1px solid #e3e9ec !important;
+}
+
+/* 첫 번째 주는 이미 헤더 경계선을 사용하므로 중복되지 않게 정리 */
+.calendar-grid .day:nth-child(-n+7){
+  border-top:0 !important;
+}
+
+/* 마지막 실제 날짜 주(5번째 주) 아래쪽에도 얇은 회색선 추가 */
+.calendar-grid .day:nth-child(n+29):nth-child(-n+35){
+  border-bottom:1px solid #e3e9ec !important;
+}
+
+/* 6번째 주 셀에도 격자 구조 유지 */
+.calendar-grid .day:nth-child(n+36){
+  border-top:0 !important;
+  border-bottom:0 !important;
+}
