@@ -36,23 +36,6 @@ const terms=[
  {cat:"탄소·에너지",term:"Net Zero",eng:"Net Zero",def:"감축 후 남은 온실가스 배출량을 제거·상쇄해 순배출량을 0으로 만드는 목표.",usage:"중장기 탄소중립 전략과 고객사 요구 대응"},
  {cat:"자동차·제품환경",term:"CBAM",eng:"Carbon Border Adjustment Mechanism",def:"EU 수입품의 내재배출량에 탄소가격을 부과하는 탄소국경조정제도.",usage:"EU 수출 및 공급망 탄소정보 관리"}
 ];
-function formatPeople(text){
- if(!text||text==="-")return '<span class="person-line muted">-</span>';
-
- const parts=String(text)
-   .split(" · ")
-   .map(v=>v.trim())
-   .filter(Boolean);
-
- return parts
-   .map(v=>{
-     const safe=v
-       .replace(" (2차사 협조/전달)", '<small class="person-note">(2차사 협조/전달)</small>');
-     return `<span class="person-line">${safe}</span>`;
-   })
-   .join("");
-}
-
 function renderRR(filter="전체",q=""){
  const query=q.toLowerCase();
  const list=rrData.filter(x=>(filter==="전체"||x.task===filter)&&(`${x.task} ${x.full} ${x.company} ${x.primary} ${x.support} ${x.coord}`.toLowerCase().includes(query)));
@@ -66,18 +49,29 @@ function renderRR(filter="전체",q=""){
  $("#rrGrid").innerHTML=Object.entries(grouped).map(([task,items])=>`
    <section class="rr-task-group">
      <div class="rr-task-head">
-       <div><span>${task}</span><strong>${items[0]?.full||""}</strong></div>
+       <div>
+         <span>${task}</span>
+         <strong>${items[0]?.full||""}</strong>
+       </div>
        ${task==="ESG 평가"?'<em>계열사별 취합·조율: 기획 김준성 책임 · 기획 진승길 매니저</em>':""}
      </div>
      <div class="rr-company-grid">
        ${items.map(x=>`
          <article class="rr-card">
-           <div class="rr-company">${x.company}</div>
-           <dl>
-             <div><dt>정</dt><dd class="people primary">${formatPeople(x.primary)}</dd></div>
-             <div><dt>부</dt><dd class="people">${formatPeople(x.support)}</dd></div>
-             ${x.coord?`<div class="coord"><dt>총괄</dt><dd class="people">${formatPeople(x.coord)}</dd></div>`:""}
-           </dl>
+           <h3 class="rr-company">${x.company}</h3>
+           <div class="rr-role-row">
+             <span class="rr-role-label">정</span>
+             <p class="rr-role-text primary">${x.primary}</p>
+           </div>
+           <div class="rr-role-row">
+             <span class="rr-role-label">부</span>
+             <p class="rr-role-text">${x.support}</p>
+           </div>
+           ${x.coord?`
+           <div class="rr-role-row coord">
+             <span class="rr-role-label">총괄</span>
+             <p class="rr-role-text">${x.coord}</p>
+           </div>`:""}
          </article>`).join("")}
      </div>
    </section>`).join("") || '<div class="rr-empty">검색 결과가 없습니다.</div>';
