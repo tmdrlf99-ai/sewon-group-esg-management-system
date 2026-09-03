@@ -114,13 +114,17 @@ function renderNoticeBoard(){
   ${notices.map((n,i)=>`<div class="board-item">
    <div class="board-row">
     <span class="no">${n.is_pinned?"공지":notices.length-i}</span><span class="cat">${escapeHtml(n.category||"안내")}</span>
-    <button type="button" class="title" data-board-id="${n.id}">${escapeHtml(n.title)}</button>
-    <time>${escapeHtml(String(n.notice_date||""))}</time><span class="chev">⌄</span>
+    <span class="title" data-board-id="${n.id}" role="button" tabindex="0">${escapeHtml(n.title)}</span>
+    <time>${escapeHtml(String(n.notice_date||""))}</time>
    </div>
    <div class="board-detail">${escapeHtml(n.content||"").replace(/\n/g,"<br>")}</div>
   </div>`).join("")}
  </div>`;
- box.querySelectorAll(".board-row .title").forEach(btn=>btn.addEventListener("click",()=>btn.closest(".board-item").classList.toggle("open")));
+ box.querySelectorAll(".board-row .title").forEach(el=>{
+   const toggle=()=>el.closest(".board-item")?.classList.toggle("open");
+   el.addEventListener("click",toggle);
+   el.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();toggle();}});
+ });
 }
 
 function renderRR(filter="전체",q=""){
