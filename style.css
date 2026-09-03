@@ -1364,3 +1364,146 @@ body{font-size:var(--fs-base)!important}
 .calendar-grid .day.other{
   opacity:.34 !important;
 }
+
+
+/* ===== v4.4 공지사항 글자 렌더링 최종 수정 ===== */
+/* 공지 제목은 일반 텍스트처럼 렌더링하고 특수 폰트/합성/스트로크 효과 제거 */
+.notice-mini button b,
+.board-row .title{
+  font-family:inherit !important;
+  font-size:var(--fs-notice-title) !important;
+  font-style:normal !important;
+  font-weight:700 !important;
+  color:#17384e !important;
+  -webkit-text-fill-color:#17384e !important;
+  text-shadow:none !important;
+  -webkit-text-stroke:0 transparent !important;
+  text-decoration:none !important;
+  font-synthesis:weight style !important;
+  letter-spacing:-0.08px !important;
+  line-height:1.55 !important;
+  white-space:normal !important;
+  word-break:keep-all !important;
+  overflow-wrap:break-word !important;
+  text-rendering:auto !important;
+  -webkit-font-smoothing:auto !important;
+}
+
+.notice-mini button{
+  font-family:inherit !important;
+}
+.board-row .title{
+  display:block !important;
+  width:auto !important;
+  min-width:0 !important;
+  padding:0 !important;
+  margin:0 !important;
+  border:0 !important;
+  background:none !important;
+}
+
+/* ----------------------------------------------------------------
+   달력 격자선: 각 셀 border 방식 대신 grid gap 자체를 1px 회색선으로 사용
+   이 방식은 어느 달/주차/월경계에서도 선이 빠질 수 없음
+---------------------------------------------------------------- */
+.calendar{
+  background:#e3e9ec !important;
+  border:1px solid #d8e2e7 !important;
+  border-radius:18px !important;
+  overflow:hidden !important;
+}
+
+.week{
+  display:grid !important;
+  grid-template-columns:repeat(7,minmax(0,1fr)) !important;
+  gap:1px !important;
+  background:#e3e9ec !important;
+  border:0 !important;
+  border-bottom:1px solid #e3e9ec !important;
+}
+.week span{
+  border:0 !important;
+  background:linear-gradient(180deg,#f8fafb,#f2f6f7) !important;
+}
+
+.calendar-grid{
+  display:grid !important;
+  grid-template-columns:repeat(7,minmax(0,1fr)) !important;
+  gap:1px !important;
+  background:#e3e9ec !important;
+  border:0 !important;
+}
+
+/* 기존 개별 선/box-shadow 전부 제거 */
+.calendar-grid .day,
+.calendar-grid .day:nth-child(7n),
+.calendar-grid .day:nth-child(n+36),
+.calendar-grid .day:nth-child(42),
+.calendar-grid .day[data-date$="-01"]{
+  border:0 !important;
+  box-shadow:none !important;
+  outline:none;
+  margin:0 !important;
+}
+
+/* 셀 배경을 명시해 grid-gap이 선으로 보이게 */
+.calendar-grid .day{
+  background:#ffffff !important;
+}
+
+/* 이전/다음 월 */
+.calendar-grid .day.other{
+  background:#f7f9fa !important;
+  opacity:1 !important;
+  color:#d4dde2 !important;
+}
+.calendar-grid .day.other .date-num{
+  color:#d8e0e4 !important;
+}
+
+/* 일요일 / 토요일 */
+.calendar-grid .day.sun-day:not(.other) .date-num{
+  color:#d34848 !important;
+}
+.calendar-grid .day.sat-day:not(.other) .date-num{
+  color:#3b78aa !important;
+}
+
+/* 공휴일 / 회사휴무 */
+.calendar-grid .day.holiday:not(.other){
+  background:linear-gradient(145deg,#fffafa,#fff5f5) !important;
+}
+.calendar-grid .day.company-off:not(.other){
+  background:linear-gradient(145deg,#fffaf5,#fff7f3) !important;
+}
+
+/* 오늘 표시: box-shadow 대신 inset outline 역할을 하는 pseudo element */
+.calendar-grid .day.today{
+  position:relative !important;
+  background:linear-gradient(145deg,#eefaf6,#f8fffc) !important;
+  z-index:2;
+}
+.calendar-grid .day.today::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border:2px solid #38b89d;
+  pointer-events:none;
+  z-index:3;
+}
+
+/* hover 시에도 격자선은 grid-gap으로 유지 */
+@media(hover:hover) and (pointer:fine){
+  .calendar-grid .day:not(.other):hover{
+    background:#f2faf7 !important;
+    box-shadow:none !important;
+  }
+}
+
+/* 모바일도 동일한 grid-gap 격자 방식 유지 */
+@media(max-width:760px){
+  .week,
+  .calendar-grid{
+    gap:1px !important;
+  }
+}
