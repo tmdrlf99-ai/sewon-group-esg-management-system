@@ -1507,3 +1507,109 @@ body{font-size:var(--fs-base)!important}
     gap:1px !important;
   }
 }
+
+
+/* ===== v4.5 final unified fix : notice plain text + calendar universal grid lines ===== */
+:root{
+  --notice-title-family:"Noto Sans KR","Malgun Gothic","Apple SD Gothic Neo",system-ui,sans-serif;
+  --calendar-grid-line:#dce4e8;
+}
+
+/* 공지사항 제목/행 : 특수 렌더링 제거, 일반 텍스트로 고정 */
+.board-row.board-click{cursor:pointer}
+.notice-title-plain,
+.board-row .title,
+.notice-mini button b{
+  font-family:var(--notice-title-family) !important;
+  font-style:normal !important;
+  font-weight:700 !important;
+  font-variation-settings:normal !important;
+  font-feature-settings:"liga" 0,"kern" 1 !important;
+  font-synthesis:none !important;
+  color:#17384e !important;
+  -webkit-text-fill-color:#17384e !important;
+  text-shadow:none !important;
+  -webkit-text-stroke:0 transparent !important;
+  text-decoration:none !important;
+  letter-spacing:-0.01em !important;
+  line-height:1.58 !important;
+  transform:none !important;
+  filter:none !important;
+  word-break:keep-all !important;
+  overflow-wrap:anywhere !important;
+  white-space:normal !important;
+  text-rendering:optimizeLegibility !important;
+  -webkit-font-smoothing:antialiased !important;
+  -moz-osx-font-smoothing:grayscale !important;
+}
+.board-row .title,
+.notice-title-plain{
+  display:block !important;
+  background:none !important;
+  border:0 !important;
+  padding:0 !important;
+  margin:0 !important;
+  min-width:0 !important;
+  width:auto !important;
+}
+.board-row .title,
+.notice-title-plain{font-size:var(--fs-notice-title) !important;}
+
+/* 달력: 어떤 월이든 내부 모든 경계선이 끊기지 않도록 셀 자체의 top/left line을 고정 */
+.calendar{
+  border:1px solid var(--calendar-grid-line) !important;
+  background:#f7fafb !important;
+}
+.week,
+.calendar-grid{
+  background:var(--calendar-grid-line) !important;
+  gap:1px !important;
+}
+.week span,
+.calendar-grid .day{
+  position:relative !important;
+}
+.week span{
+  background:#f7fafb !important;
+  border:0 !important;
+  box-shadow:none !important;
+}
+.calendar-grid{
+  padding:0 !important;
+  border:0 !important;
+}
+.calendar-grid .day,
+.calendar-grid .day:nth-child(7n),
+.calendar-grid .day:nth-child(n+36),
+.calendar-grid .day:nth-child(42),
+.calendar-grid .day[data-date$="-01"]{
+  border:0 !important;
+  box-shadow:none !important;
+  outline:none !important;
+}
+.calendar-grid .day{
+  background:#fff !important;
+}
+/* top/left thin line is drawn on every cell, so 1일 왼쪽 / 전월 아래 / 다음월 위가 항상 표시됨 */
+.calendar-grid .day::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  box-shadow:inset 1px 0 0 var(--calendar-grid-line), inset 0 1px 0 var(--calendar-grid-line);
+  z-index:1;
+}
+.calendar-grid .day>*{position:relative;z-index:2}
+.calendar-grid .day.other{background:#f7f9fa !important;color:#d4dde2 !important;opacity:1 !important}
+.calendar-grid .day.other .date-num{color:#d6dee3 !important}
+.calendar-grid .day.holiday:not(.other){background:linear-gradient(145deg,#fffaf9,#fff5f5) !important}
+.calendar-grid .day.company-off:not(.other){background:linear-gradient(145deg,#fffbf7,#fff7f3) !important}
+.calendar-grid .day.today{background:linear-gradient(145deg,#eefaf6,#f9fffd) !important}
+.calendar-grid .day.today::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border:2px solid #38b89d;
+  pointer-events:none;
+  z-index:3;
+}
