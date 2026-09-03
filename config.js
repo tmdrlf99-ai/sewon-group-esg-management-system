@@ -1,0 +1,4 @@
+window.SEWON_CONFIG = {
+  SUPABASE_URL: "https://rnzmlkwasjpajiumdlho.supabase.co",
+  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJuem1sa3dhc2pwYWppdW1kbGhvIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODI4NjY4MzgsImV4cCI6MjA5ODQ0MjgzOH0.xlva9H5gSwTlG_IDQ5JekN2F33vVgN6__wbSnivKtvY"
+};

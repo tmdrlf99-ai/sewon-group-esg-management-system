@@ -1,99 +1,111 @@
 <!doctype html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>SEWON GROUP ESG MANAGEMENT SYSTEM - Admin</title>
-  <link rel="stylesheet" href="admin-style.css"/>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>SEWON GROUP ESG MANAGEMENT SYSTEM - Admin</title>
+<link rel="stylesheet" href="admin-style.css"/>
 </head>
 <body>
-  <aside class="admin-side">
-    <div class="admin-brand">
-      <strong>SEWON</strong>
-      <span>GROUP ESG MANAGEMENT</span>
-    </div>
-    <nav>
-      <button class="active" data-target="dashboard">대시보드</button>
-      <button data-target="calendar">ESG 일정 관리</button>
-      <button data-target="notice">공지사항 관리</button>
-      <button data-target="rr">R&amp;R 관리</button>
-      <button data-target="glossary">ESG 용어 관리</button>
-    </nav>
-    <a class="public-link" href="index.html">← 공개페이지로 돌아가기</a>
-  </aside>
+<section id="loginView" class="login-view">
+ <div class="login-card"><strong>SEWON</strong><span>GROUP ESG MANAGEMENT SYSTEM</span><h1>관리자 로그인</h1>
+ <input id="loginEmail" type="email" placeholder="관리자 이메일"/><input id="loginPassword" type="password" placeholder="비밀번호"/>
+ <button id="loginBtn">로그인</button><p id="loginMsg"></p></div>
+</section>
 
-  <main class="admin-main">
-    <header>
-      <div>
-        <span>SEWON GROUP ESG</span>
-        <h1>관리자 페이지</h1>
-      </div>
-      <b>Prototype Admin</b>
-    </header>
+<div id="adminApp" class="admin-shell" hidden>
+ <aside class="admin-side">
+  <div class="admin-brand"><strong>SEWON</strong><span>GROUP ESG MANAGEMENT</span></div>
+  <nav>
+   <button class="active" data-target="dashboard">대시보드</button>
+   <button data-target="calendar">ESG 일정 관리</button>
+   <button data-target="notice">공지사항 관리</button>
+   <button data-target="rr">R&amp;R 관리</button>
+   <button data-target="glossary">ESG 용어 관리</button>
+   <button data-target="content">페이지 문구·글자크기</button>
+  </nav>
+  <div class="side-bottom"><a href="index.html">← 공개페이지</a><button id="logoutBtn">로그아웃</button></div>
+ </aside>
 
-    <section id="dashboard" class="admin-section active">
-      <div class="section-head"><h2>대시보드</h2><p>사내 ESG 포털 관리 항목을 한눈에 확인합니다.</p></div>
-      <div class="summary-grid">
-        <div><strong>12</strong><span>2026 주요 일정</span></div>
-        <div><strong>3</strong><span>공지사항</span></div>
-        <div><strong>20</strong><span>R&amp;R 담당 항목</span></div>
-        <div><strong>9</strong><span>등록 ESG 용어</span></div>
-      </div>
-      <div class="note-card">
-        <strong>현재 관리자 페이지는 1차 UI 프로토타입입니다.</strong>
-        <p>다음 단계에서 Supabase DB를 연결하면 일정·공지·R&amp;R·용어를 이 화면에서 수정하고 공개페이지에 즉시 반영할 수 있습니다.</p>
-      </div>
-    </section>
+ <main class="admin-main">
+  <header><div><span>SEWON GROUP ESG</span><h1 id="adminPageTitle">관리자 페이지</h1></div><b>LIVE ADMIN</b></header>
 
-    <section id="calendar" class="admin-section">
-      <div class="section-head"><h2>ESG 일정 관리</h2><p>평가·공시·검증·교육 및 그룹 일정을 관리합니다.</p></div>
-      <div class="admin-card">
-        <label>일정 제목</label><input placeholder="예: CDP 대응자료 점검"/>
-        <div class="two"><div><label>일자</label><input type="date"/></div><div><label>구분</label><select><option>ESG</option><option>평가</option><option>교육</option><option>검증</option></select></div></div>
-        <label>설명</label><textarea placeholder="일정 관련 설명"></textarea>
-        <button type="button" class="primary">등록</button>
-      </div>
-    </section>
+  <section id="dashboard" class="admin-section active">
+   <div class="section-head"><h2>대시보드</h2><p>사내 ESG 포털 운영현황입니다.</p></div>
+   <div id="summaryGrid" class="summary-grid"></div>
+  </section>
 
-    <section id="notice" class="admin-section">
-      <div class="section-head"><h2>공지사항 관리</h2><p>사내 ESG 공지를 등록하고 관리합니다.</p></div>
-      <div class="admin-card">
-        <label>제목</label><input placeholder="공지 제목"/>
-        <div class="two"><div><label>구분</label><select><option>중요</option><option>평가</option><option>교육</option><option>안내</option></select></div><div><label>등록일</label><input type="date"/></div></div>
-        <label>내용</label><textarea placeholder="공지 내용을 입력하세요"></textarea>
-        <button type="button" class="primary">등록</button>
-      </div>
-    </section>
+  <section id="calendar" class="admin-section">
+   <div class="section-head"><h2>ESG 일정 관리</h2><p>기존 일정 수정·삭제·공개여부를 포함해 관리합니다.</p></div>
+   <div class="admin-split">
+    <form id="eventForm" class="admin-card">
+     <input id="eventId" type="hidden"/>
+     <h3>일정 등록 / 수정</h3>
+     <div class="two"><div><label>일자</label><input id="eventDate" type="date" required/></div><div><label>구분</label><select id="eventCategory"><option>ESG</option><option>공휴일</option><option>회사휴무</option></select></div></div>
+     <label>제목</label><input id="eventTitle" required/>
+     <label>설명</label><textarea id="eventDesc"></textarea>
+     <label>표시 문구</label><input id="eventStatus" placeholder="예: 예정, D-5"/>
+     <div class="check-row"><label><input id="eventVisible" type="checkbox" checked/> 공개</label></div>
+     <div class="actions"><button class="primary">저장</button><button id="eventReset" type="button">초기화</button></div>
+    </form>
+    <div class="admin-card list-card"><div class="list-head"><h3>등록 일정</h3><input id="eventSearch" placeholder="일정 검색"/></div><div id="eventListAdmin" class="admin-list"></div></div>
+   </div>
 
-    <section id="rr" class="admin-section">
-      <div class="section-head"><h2>R&amp;R 관리</h2><p>LCA·RMI·CDP·SCEMS·ESG 평가의 회사별 담당자를 관리합니다.</p></div>
-      <div class="admin-card">
-        <div class="two"><div><label>업무</label><select><option>LCA</option><option>RMI</option><option>CDP</option><option>SCEMS</option><option>ESG 평가</option></select></div><div><label>회사</label><select><option>세원정공</option><option>세원물산</option><option>세원테크</option><option>세원이엔아이</option></select></div></div>
-        <label>정 담당자</label><input placeholder="부서 / 성명 / 직급"/>
-        <label>부 담당자</label><input placeholder="부서 / 성명 / 직급"/>
-        <button type="button" class="primary">저장</button>
-      </div>
-    </section>
+   <div class="admin-card month-meta-card">
+    <h3>월별 근무일수</h3><div id="monthMetaGrid" class="month-meta-grid"></div><button id="saveMonthMeta" class="primary" type="button">근무일수 저장</button>
+   </div>
+  </section>
 
-    <section id="glossary" class="admin-section">
-      <div class="section-head"><h2>ESG 용어 관리</h2><p>사내 포털에 노출할 ESG 용어를 관리합니다.</p></div>
-      <div class="admin-card">
-        <div class="two"><div><label>용어</label><input placeholder="예: Scope 3"/></div><div><label>분야</label><select><option>탄소·에너지</option><option>평가·공시</option><option>공급망·인권</option><option>자동차·제품환경</option></select></div></div>
-        <label>정의</label><textarea placeholder="용어 설명"></textarea>
-        <label>업무 활용</label><textarea placeholder="사내 업무에서 어떻게 활용되는지"></textarea>
-        <button type="button" class="primary">저장</button>
-      </div>
-    </section>
-  </main>
-  <script>
-    document.querySelectorAll('.admin-side nav button').forEach(btn=>{
-      btn.addEventListener('click',()=>{
-        document.querySelectorAll('.admin-side nav button').forEach(x=>x.classList.remove('active'));
-        document.querySelectorAll('.admin-section').forEach(x=>x.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById(btn.dataset.target)?.classList.add('active');
-      });
-    });
-  </script>
-</body>
-</html>
+  <section id="notice" class="admin-section">
+   <div class="section-head"><h2>공지사항 관리</h2><p>공지 수정·삭제·상단고정·공개여부를 관리합니다.</p></div>
+   <div class="admin-split">
+    <form id="noticeForm" class="admin-card">
+     <input id="noticeId" type="hidden"/><h3>공지 등록 / 수정</h3>
+     <div class="two"><div><label>구분</label><input id="noticeCategory" value="안내"/></div><div><label>등록일</label><input id="noticeDate" type="date" required/></div></div>
+     <label>제목</label><input id="noticeTitle" required/><label>내용</label><textarea id="noticeContent" required></textarea>
+     <div class="check-row"><label><input id="noticePinned" type="checkbox"/> 상단 고정</label><label><input id="noticeVisible" type="checkbox" checked/> 공개</label></div>
+     <div class="actions"><button class="primary">저장</button><button id="noticeReset" type="button">초기화</button></div>
+    </form>
+    <div class="admin-card list-card"><div class="list-head"><h3>등록 공지</h3><input id="noticeSearch" placeholder="공지 검색"/></div><div id="noticeListAdmin" class="admin-list"></div></div>
+   </div>
+  </section>
+
+  <section id="rr" class="admin-section">
+   <div class="section-head"><h2>R&amp;R 관리</h2><p>업무·회사별 정/부/총괄 담당자를 수정하거나 공개여부를 설정합니다.</p></div>
+   <div class="admin-split">
+    <form id="rrForm" class="admin-card">
+     <input id="rrId" type="hidden"/><h3>R&amp;R 등록 / 수정</h3>
+     <div class="two"><div><label>업무</label><input id="rrTask" required/></div><div><label>업무 영문/설명</label><input id="rrFull"/></div></div>
+     <label>회사</label><input id="rrCompany" required/><label>정 담당자</label><textarea id="rrPrimary" required></textarea>
+     <label>부 담당자</label><textarea id="rrSupport"></textarea><label>총괄</label><textarea id="rrCoord"></textarea>
+     <div class="two"><div><label>정렬순서</label><input id="rrSort" type="number" value="100"/></div><div class="check-row"><label><input id="rrVisible" type="checkbox" checked/> 공개</label></div></div>
+     <div class="actions"><button class="primary">저장</button><button id="rrReset" type="button">초기화</button></div>
+    </form>
+    <div class="admin-card list-card"><div class="list-head"><h3>등록 R&amp;R</h3><input id="rrSearchAdmin" placeholder="업무·회사·담당자 검색"/></div><div id="rrListAdmin" class="admin-list"></div></div>
+   </div>
+  </section>
+
+  <section id="glossary" class="admin-section">
+   <div class="section-head"><h2>ESG 용어 관리</h2><p>용어 수정·삭제·공개여부를 관리합니다.</p></div>
+   <div class="admin-split">
+    <form id="glossForm" class="admin-card">
+     <input id="glossId" type="hidden"/><h3>용어 등록 / 수정</h3>
+     <div class="two"><div><label>용어</label><input id="glossTerm" required/></div><div><label>영문/약어</label><input id="glossEng"/></div></div>
+     <label>분야</label><input id="glossCategory" required/><label>정의</label><textarea id="glossDef" required></textarea><label>활용</label><textarea id="glossUsage"></textarea>
+     <div class="two"><div><label>정렬순서</label><input id="glossSort" type="number" value="100"/></div><div class="check-row"><label><input id="glossVisible" type="checkbox" checked/> 공개</label></div></div>
+     <div class="actions"><button class="primary">저장</button><button id="glossReset" type="button">초기화</button></div>
+    </form>
+    <div class="admin-card list-card"><div class="list-head"><h3>등록 용어</h3><input id="glossSearchAdmin" placeholder="용어 검색"/></div><div id="glossListAdmin" class="admin-list"></div></div>
+   </div>
+  </section>
+
+  <section id="content" class="admin-section">
+   <div class="section-head"><h2>페이지 문구 · 글자크기</h2><p>공개페이지 고정 문구와 영역별 글자 크기를 직접 변경합니다.</p></div>
+   <form id="settingsForm" class="admin-card settings-card">
+    <div id="settingsFields"></div>
+    <div class="sticky-save"><button class="primary">전체 설정 저장</button><span id="settingsMsg"></span></div>
+   </form>
+  </section>
+ </main>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="config.js"></script><script src="admin.js"></script>
+</body></html>
