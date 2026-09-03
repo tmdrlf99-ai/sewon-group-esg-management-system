@@ -1227,3 +1227,24 @@ body{font-size:var(--fs-base)!important}
   .board-row .chev{grid-column:3;grid-row:1/span 2}
   .board-detail{padding:13px 14px;font-size:11.5px}
 }
+
+
+/* ===== v4.2 공지사항 한글 줄바꿈 보정 =====
+   기존 색상/글꼴/크기는 유지, 줄바꿈만 자연스럽게
+*/
+.notice-mini,
+.notice-mini button,
+.notice-mini button b,
+.board-dynamic,
+.board-row,
+.board-row .title,
+.board-detail{
+  min-width:0;
+}
+.notice-mini button b,
+.board-row .title,
+.board-detail{
+  word-break:keep-all !important;
+  overflow-wrap:break-word !important;
+  white-space:normal !important;
+}

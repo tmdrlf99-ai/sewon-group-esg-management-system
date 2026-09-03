@@ -14,3 +14,67 @@ button,input,select,textarea{font:inherit}.login-view{min-height:100vh;display:g
 .settings-card{max-width:1100px}.settings-group{margin-bottom:22px}.settings-group h3{padding-bottom:8px;border-bottom:1px solid #e4eaed}.settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.setting-field label{margin-top:0}.setting-field textarea{min-height:70px}.font-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.font-grid .setting-field{padding:10px;border:1px solid #e4eaed;border-radius:10px;background:#f9fbfb}.sticky-save{position:sticky;bottom:10px;display:flex;align-items:center;gap:10px;margin-top:18px;padding:12px;background:rgba(255,255,255,.95);border:1px solid var(--line);border-radius:12px;box-shadow:0 8px 26px rgba(20,48,66,.08)}.sticky-save span{font-size:10px;color:#1a846e}
 @media(max-width:1000px){.admin-split{grid-template-columns:1fr}.summary-grid{grid-template-columns:1fr 1fr}.settings-grid,.font-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:760px){.admin-side{position:static;width:100%}.admin-side nav{grid-template-columns:1fr 1fr}.side-bottom{position:static;margin-top:15px}.admin-main{margin-left:0;padding:18px}.two,.settings-grid,.font-grid{grid-template-columns:1fr}.month-meta-grid{grid-template-columns:repeat(3,1fr)}}
+
+/* ===== v4.2 관리자 로그인 화면 FIX ===== */
+
+/* hidden 속성이 확실히 동작하도록 강제 */
+[hidden]{
+  display:none !important;
+}
+.login-view[hidden],
+.admin-shell[hidden]{
+  display:none !important;
+}
+
+/* 로그인 버튼 글자 깨짐/겹침 방지 */
+.login-card button,
+#loginBtn{
+  color:#ffffff !important;
+  -webkit-text-fill-color:#ffffff !important;
+  text-shadow:none !important;
+  box-shadow:none;
+  font-weight:800 !important;
+  letter-spacing:0 !important;
+  line-height:1.2 !important;
+  text-decoration:none !important;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:geometricPrecision;
+}
+#loginBtn::before,
+#loginBtn::after{
+  content:none !important;
+}
+
+/* 관리자 화면 전체 한글 줄바꿈 안정화 */
+.login-card,
+.login-card h1,
+.login-card span,
+.login-card p,
+.admin-side,
+.admin-side nav button,
+.admin-main,
+.admin-main h1,
+.section-head h2,
+.section-head p,
+.admin-card,
+.admin-card h3,
+.admin-card label,
+.list-item,
+.list-item b,
+.list-item small,
+.setting-field label{
+  word-break:keep-all !important;
+  overflow-wrap:break-word !important;
+}
+.admin-side nav button,
+.list-item b,
+.list-item small{
+  white-space:normal !important;
+}
+
+/* 입력글자와 버튼 렌더링 안정화 */
+.login-card input{
+  color:#102f45 !important;
+  -webkit-text-fill-color:#102f45 !important;
+  text-shadow:none !important;
+}

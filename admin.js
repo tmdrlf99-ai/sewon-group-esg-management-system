@@ -8,16 +8,40 @@ let allEvents=[],allNotices=[],allRR=[],allGloss=[],allSettings={},allMonthMeta=
 
 async function checkSession(){
  const {data}=await sb.auth.getSession();
- if(data.session)showApp(); else $("#loginView").hidden=false;
+ if(data?.session){
+   await showApp();
+ }else{
+   showLogin();
+ }
+}
+function showLogin(){
+ $("#loginView").hidden=false;
+ $("#adminApp").hidden=true;
 }
 async function login(){
  $("#loginMsg").textContent="";
- const {error}=await sb.auth.signInWithPassword({email:$("#loginEmail").value.trim(),password:$("#loginPassword").value});
- if(error)return $("#loginMsg").textContent=error.message;
- showApp();
+ const email=$("#loginEmail").value.trim();
+ const password=$("#loginPassword").value;
+ if(!email||!password){
+   $("#loginMsg").textContent="이메일과 비밀번호를 입력해 주세요.";
+   return;
+ }
+ const {error}=await sb.auth.signInWithPassword({email,password});
+ if(error){
+   $("#loginMsg").textContent="로그인에 실패했습니다. 이메일과 비밀번호를 확인해 주세요.";
+   return;
+ }
+ await showApp();
 }
-async function showApp(){$("#loginView").hidden=true;$("#adminApp").hidden=false;await loadAll()}
-async function logout(){await sb.auth.signOut();location.reload()}
+async function showApp(){
+ $("#loginView").hidden=true;
+ $("#adminApp").hidden=false;
+ await loadAll();
+}
+async function logout(){
+ await sb.auth.signOut();
+ showLogin();
+}
 
 async function loadAll(){
  const [e,n,r,g,s,mm]=await Promise.all([
@@ -93,7 +117,20 @@ function renderSettings(){
 async function saveSettings(e){e.preventDefault();const rows=$$("#settingsFields [data-key]").map(el=>({key:el.dataset.key,value:el.value,updated_at:new Date().toISOString()}));const {error}=await sb.from("internal_site_settings").upsert(rows,{onConflict:"key"});settingsMsg.textContent=error?error.message:"저장되었습니다.";if(!error)await loadAll()}
 
 $$(".admin-side nav button").forEach(btn=>btn.addEventListener("click",()=>{$$(".admin-side nav button").forEach(x=>x.classList.remove("active"));$$(".admin-section").forEach(x=>x.classList.remove("active"));btn.classList.add("active");$("#"+btn.dataset.target).classList.add("active")}));
-loginBtn.addEventListener("click",login);logoutBtn.addEventListener("click",logout);
+loginBtn.addEventListener("click",login);
+loginPassword.addEventListener("keydown",e=>{if(e.key==="Enter")login()});
+loginEmail.addEventListener("keydown",e=>{if(e.key==="Enter")login()});
+logoutBtn.addEventListener("click",logout);
+
+sb.auth.onAuthStateChange((event,session)=>{
+  if(event==="SIGNED_IN" && session){
+    $("#loginView").hidden=true;
+    $("#adminApp").hidden=false;
+  }
+  if(event==="SIGNED_OUT"){
+    showLogin();
+  }
+});
 eventForm.addEventListener("submit",saveEvent);eventReset.addEventListener("click",resetEvent);eventSearch.addEventListener("input",renderEvents);
 noticeForm.addEventListener("submit",saveNotice);noticeReset.addEventListener("click",resetNotice);noticeSearch.addEventListener("input",renderNotices);
 rrForm.addEventListener("submit",saveRR);rrReset.addEventListener("click",resetRR);rrSearchAdmin.addEventListener("input",renderRR);
